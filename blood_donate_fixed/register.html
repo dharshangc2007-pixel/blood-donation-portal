@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Register as a blood donor at LifeFlow Blood Donation Camp. Fill in your personal and medical details to secure your spot." />
+  <title>LifeFlow – Register | Blood Donation Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Internal CSS – Register page */
+    .page-hero {
+      padding: 160px 20px 60px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(220,20,60,0.12) 0%, transparent 65%);
+    }
+    .page-hero h1 { color: #fff; margin-bottom: 16px; }
+    .page-hero p  { max-width: 550px; margin: 0 auto; font-size: 1rem; }
+
+    .notification-bar {
+      background: linear-gradient(135deg, rgba(220,20,60,0.15), rgba(139,0,0,0.15));
+      border: 1px solid rgba(220,20,60,0.3);
+      border-radius: 12px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      font-size: 0.85rem;
+      color: #ff8fa3;
+    }
+
+    .tooltip-wrapper { position: relative; display: inline-flex; align-items: center; gap: 6px; }
+    .tooltip-icon {
+      width: 16px; height: 16px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; cursor: help; color: #9090a8;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .tooltip-icon:hover + .tooltip-text { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .tooltip-text {
+      position: absolute; bottom: calc(100% + 8px); left: 0;
+      background: #1a1a2e; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 8px 12px;
+      font-size: 0.75rem; color: #c0b8c8; white-space: nowrap;
+      opacity: 0; pointer-events: none; transform: translateY(4px);
+      transition: all 0.3s ease; z-index: 10;
+    }
+
+    .success-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+      z-index: 9999; align-items: center; justify-content: center;
+    }
+    .success-overlay.show { display: flex; }
+    .success-card {
+      background: linear-gradient(145deg,#1a1a2e,#0f0f1a);
+      border: 1px solid rgba(220,20,60,0.3);
+      border-radius: 28px; padding: 50px 40px;
+      text-align: center; max-width: 480px; width: 90%;
+      animation: scaleIn 0.4s ease;
+    }
+    @keyframes scaleIn { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+    .success-icon  { font-size: 4rem; margin-bottom: 20px; display: block; }
+    .success-title { color: #fff; margin-bottom: 12px; font-size: 1.6rem; }
+    .success-desc  { color: #9090a8; font-size: 0.9rem; margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">❤️</div>
+      <div class="nav-logo-text">Life<span>Flow</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="eligibility.html">Eligibility</a></li>
+      <li><a href="register.html" class="nav-active">Register</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HERO ===== -->
+  <div class="page-hero">
+    <span class="section-tag">Join The Movement</span>
+    <h1>Donor Registration Form</h1>
+    <p>Complete the form below to register as a blood donor for our upcoming camp. Takes less than 5 minutes.</p>
+  </div>
+
+  <main>
+    <section class="form-section-bg">
+      <div class="section" style="padding-top:40px;padding-bottom:60px;">
+
+        <form
+          class="registration-form"
+          id="donorRegistrationForm"
+          action="#"
+          method="POST"
+          enctype="multipart/form-data"
+          novalidate
+          autocomplete="on"
+        >
+          <!-- Notification Bar -->
+          <div class="notification-bar">
+            <span style="font-size:1.2rem;flex-shrink:0;">ℹ️</span>
+            <span>Fields marked <strong style="color:#ff4d6d;">*</strong> are required. Data is kept strictly confidential per HIPAA guidelines.</span>
+          </div>
+
+          <!-- Step Tabs -->
+          <div class="form-steps" role="tablist">
+            <div class="form-step-tab active" role="tab">👤 Personal Info</div>
+            <div class="form-step-tab"        role="tab">🩺 Medical Details</div>
+            <div class="form-step-tab"        role="tab">✅ Consent</div>
+          </div>
+
+          <!-- ====== SECTION 1: PERSONAL INFORMATION ====== -->
+          <fieldset style="border:none;padding:0;margin:0 0 30px 0;">
+            <legend style="color:#ff4d6d;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:rgba(220,20,60,0.2);border-radius:50%;font-size:0.7rem;">1</span>
+              Personal Information
+            </legend>
+
+            <!-- Name Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name <span class="required">*</span></label>
+                <input type="text" id="firstName" name="firstName" class="form-control"
+                  placeholder="e.g. Arjun" required minlength="2" maxlength="50"
+                  autocomplete="given-name" pattern="[A-Za-z\s]+" title="Letters only" />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="lastName" name="lastName" class="form-control"
+                  placeholder="e.g. Sharma" required minlength="2" maxlength="50"
+                  autocomplete="family-name" pattern="[A-Za-z\s]+" />
+              </div>
+            </div>
+
+            <!-- Email & Phone -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" class="form-control"
+                  placeholder="you@example.com" required autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" class="form-control"
+                  placeholder="+91 98765 43210" required
+                  pattern="[+]?[0-9\s\-]{10,15}" autocomplete="tel" />
+              </div>
+            </div>
+
+            <!-- DOB, Age, Gender -->
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="dob">Date of Birth <span class="required">*</span></label>
+                <input type="date" id="dob" name="dob" class="form-control"
+                  required max="2007-12-31" min="1950-01-01" />
+              </div>
+              <div class="form-group">
+                <label for="age">Age (Auto-calculated)</label>
+                <input type="number" id="age" name="age" class="form-control"
+                  placeholder="Auto-filled" min="18" max="65" readonly
+                  style="opacity:0.7;cursor:not-allowed;" />
+              </div>
+              <div class="form-group">
+                <label for="gender">Gender <span class="required">*</span></label>
+                <select id="gender" name="gender" class="form-control" required>
+                  <option value="" disabled selected>Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other / Non-binary</option>
+                  <option value="prefer_not">Prefer not to say</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Aadhaar & Occupation -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="govId">
+                  <div class="tooltip-wrapper">
+                    Aadhaar / Govt. ID <span class="required">*</span>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Required for identity verification. Kept confidential.</span>
+                  </div>
+                </label>
+                <input type="text" id="govId" name="govId" class="form-control"
+                  placeholder="XXXX XXXX XXXX" required maxlength="14"
+                  pattern="[0-9\s]{12,14}" title="Enter a valid 12-digit Aadhaar" />
+              </div>
+              <div class="form-group">
+                <label for="occupation">Occupation</label>
+                <select id="occupation" name="occupation" class="form-control">
+                  <option value="" disabled selected>Select occupation</option>
+                  <option value="student">Student</option>
+                  <option value="professional">Working Professional</option>
+                  <option value="medical">Medical / Healthcare</option>
+                  <option value="business">Business / Self-employed</option>
+                  <option value="government">Government Employee</option>
+                  <option value="homemaker">Homemaker</option>
+                  <option value="retired">Retired</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+              <label for="address">Residential Address <span class="required">*</span></label>
+              <textarea id="address" name="address" class="form-control"
+                placeholder="House No., Street, Area, City, State, PIN Code"
+                required rows="3" maxlength="300"></textarea>
+            </div>
+
+            <!-- Emergency Contact -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="emergencyName">Emergency Contact Name <span class="required">*</span></label>
+                <input type="text" id="emergencyName" name="emergencyName" class="form-control"
+                  placeholder="Full name" required />
+              </div>
+              <div class="form-group">
+                <label for="emergencyPhone">Emergency Contact Phone <span class="required">*</span></label>
+                <input type="tel" id="emergencyPhone" name="emergencyPhone" class="form-control"
+                  placeholder="+91 98765 43210" required pattern="[+]?[0-9\s\-]{10,15}" />
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="form-divider">Medical Information</div>
+
+          <!-- ====== SECTION 2: MEDICAL INFORMATION ====== -->
+          <fieldset style="border:none;padding:0;margin:0 0 30px 0;">
+            <legend style="color:#ff4d6d;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:rgba(220,20,60,0.2);border-radius:50%;font-size:0.7rem;">2</span>
+              Medical Details
+            </legend>
+
+            <!-- Blood Group & Weight -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bloodGroup">Blood Group <span class="required">*</span></label>
+                <select id="bloodGroup" name="bloodGroup" class="form-control" required>
+                  <option value="" disabled selected>Select blood group</option>
+                  <optgroup label="Common Types">
+                    <option value="A+">A Positive (A+)</option>
+                    <option value="B+">B Positive (B+)</option>
+                    <option value="O+">O Positive (O+)</option>
+                    <option value="AB+">AB Positive (AB+)</option>
+                  </optgroup>
+                  <optgroup label="Rare Types">
+                    <option value="A-">A Negative (A−)</option>
+                    <option value="B-">B Negative (B−)</option>
+                    <option value="O-">O Negative (O−) 🚨 Urgently Needed</option>
+                    <option value="AB-">AB Negative (AB−)</option>
+                  </optgroup>
+                  <option value="unknown">Don't Know / Not Tested</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="weight">Body Weight (kg) <span class="required">*</span></label>
+                <input type="number" id="weight" name="weight" class="form-control"
+                  placeholder="e.g. 68" required min="50" max="200" step="0.5" />
+              </div>
+            </div>
+
+            <!-- Donation Type -->
+            <div class="form-group">
+              <label>Donation Type <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option"><input type="radio" name="donationType" value="whole_blood" required checked />🩸 Whole Blood</label>
+                <label class="radio-option"><input type="radio" name="donationType" value="platelets" />🧪 Platelets</label>
+                <label class="radio-option"><input type="radio" name="donationType" value="plasma" />💉 Plasma</label>
+                <label class="radio-option"><input type="radio" name="donationType" value="double_red" />🔴 Double Red Cells</label>
+              </div>
+            </div>
+
+            <!-- Previous Donation -->
+            <div class="form-group">
+              <label>Have you donated blood before? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option"><input type="radio" name="previousDonation" value="yes" required />Yes, I have donated before</label>
+                <label class="radio-option"><input type="radio" name="previousDonation" value="no" />No, this is my first time</label>
+              </div>
+            </div>
+
+            <!-- Last Donation Date -->
+            <div class="form-group">
+              <label for="lastDonationDate">Date of Last Donation (if applicable)</label>
+              <input type="date" id="lastDonationDate" name="lastDonationDate" class="form-control" />
+            </div>
+
+            <!-- Donation Count Slider -->
+            <div class="form-group">
+              <label>Total Times Donated Before</label>
+              <div class="range-wrapper">
+                <input type="range" class="range-slider" id="donationCount"
+                  name="donationCount" min="0" max="50" value="0" step="1" />
+                <div class="range-labels">
+                  <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50+</span>
+                </div>
+                <div class="range-value" id="donationCountDisplay">0 times</div>
+              </div>
+            </div>
+
+            <!-- Medical Conditions -->
+            <div class="form-group">
+              <label>Any existing medical conditions? (Select all that apply)</label>
+              <div class="checkbox-group">
+                <label class="checkbox-option"><input type="checkbox" name="conditions" value="diabetes" />Diabetes</label>
+                <label class="checkbox-option"><input type="checkbox" name="conditions" value="hypertension" />Hypertension</label>
+                <label class="checkbox-option"><input type="checkbox" name="conditions" value="asthma" />Asthma</label>
+                <label class="checkbox-option"><input type="checkbox" name="conditions" value="heart_disease" />Heart Disease</label>
+                <label class="checkbox-option"><input type="checkbox" name="conditions" value="anemia" />Anemia</label>
+                <label class="checkbox-option"><input type="checkbox" name="conditions" value="none" />None of the above</label>
+              </div>
+            </div>
+
+            <!-- Medications -->
+            <div class="form-group">
+              <label for="medications">Current Medications (if any)</label>
+              <textarea id="medications" name="medications" class="form-control"
+                placeholder="List any current medications, supplements, or recent vaccinations..."
+                rows="3" maxlength="500"></textarea>
+            </div>
+
+            <!-- Allergies & Hemoglobin -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="allergies">Known Allergies</label>
+                <input type="text" id="allergies" name="allergies" class="form-control"
+                  placeholder="e.g. Penicillin, Latex, None" list="allergyList" />
+                <datalist id="allergyList">
+                  <option value="None" /><option value="Penicillin" />
+                  <option value="Latex" /><option value="Aspirin" />
+                  <option value="Ibuprofen" /><option value="Sulfa drugs" />
+                </datalist>
+              </div>
+              <div class="form-group">
+                <label for="hemoglobin">Hemoglobin Level (g/dL)</label>
+                <input type="number" id="hemoglobin" name="hemoglobin" class="form-control"
+                  placeholder="e.g. 13.5" min="5" max="20" step="0.1" />
+              </div>
+            </div>
+
+            <!-- File Uploads -->
+            <div class="form-group">
+              <label>Upload Photo ID (Aadhaar / Passport / Driving License)</label>
+              <div class="file-upload-wrapper">
+                <label class="file-upload-label" for="photoId">
+                  <span class="file-upload-icon">📄</span>
+                  <span class="file-upload-text">
+                    <strong>Click to upload</strong> or drag &amp; drop<br/>
+                    JPG, PNG, PDF – Max 5MB
+                  </span>
+                </label>
+                <input type="file" id="photoId" name="photoId" class="file-input"
+                  accept=".jpg,.jpeg,.png,.pdf" />
+              </div>
+              <p id="fileNameDisplay" style="font-size:0.8rem;color:#ff4d6d;margin-top:8px;"></p>
+            </div>
+
+            <div class="form-group">
+              <label>Upload Passport-size Photograph</label>
+              <div class="file-upload-wrapper">
+                <label class="file-upload-label" for="profilePhoto">
+                  <span class="file-upload-icon">📷</span>
+                  <span class="file-upload-text">
+                    <strong>Upload photo</strong> – White/light background<br/>
+                    JPG or PNG, min 200×200px
+                  </span>
+                </label>
+                <input type="file" id="profilePhoto" name="profilePhoto" class="file-input"
+                  accept="image/jpeg,image/png" />
+              </div>
+            </div>
+
+            <!-- How did you hear + Referrer -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="referralSource">How Did You Hear About Us?</label>
+                <select id="referralSource" name="referralSource" class="form-control">
+                  <option value="" disabled selected>Select source</option>
+                  <option value="social_media">Social Media</option>
+                  <option value="friend">Friend / Family</option>
+                  <option value="hospital">Hospital / Doctor</option>
+                  <option value="newspaper">Newspaper / Magazine</option>
+                  <option value="tv">TV / Radio</option>
+                  <option value="website">Online Search</option>
+                  <option value="poster">Poster / Banner</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="referrerName">Referred By (if any)</label>
+                <input type="text" id="referrerName" name="referrerName" class="form-control"
+                  placeholder="Name of person who referred you" />
+              </div>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="form-group">
+              <label for="additionalNotes">Additional Notes or Questions</label>
+              <textarea id="additionalNotes" name="additionalNotes" class="form-control"
+                placeholder="Any other information or questions for our medical team..."
+                rows="3" maxlength="600"></textarea>
+            </div>
+          </fieldset>
+
+          <div class="form-divider">Consent &amp; Declaration</div>
+
+          <!-- ====== SECTION 3: CONSENT ====== -->
+          <fieldset style="border:none;padding:0;margin:0 0 24px 0;">
+            <legend style="color:#ff4d6d;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:rgba(220,20,60,0.2);border-radius:50%;font-size:0.7rem;">3</span>
+              Consent &amp; Declaration
+            </legend>
+
+            <div class="terms-wrapper">
+              <input type="checkbox" id="consent1" name="consent1" required />
+              <label for="consent1" class="terms-text" style="text-transform:none;letter-spacing:0;font-size:0.85rem;font-weight:400;margin:0;color:#9090a8;">
+                I confirm that all information provided is accurate and complete. I understand that providing false information may result in disqualification. <a href="#">Read declaration.</a>
+              </label>
+            </div>
+            <div class="terms-wrapper">
+              <input type="checkbox" id="consent2" name="consent2" required />
+              <label for="consent2" class="terms-text" style="text-transform:none;letter-spacing:0;font-size:0.85rem;font-weight:400;margin:0;color:#9090a8;">
+                I voluntarily consent to donate blood and undergo necessary medical screening. I understand the donation process and acknowledge it is safe with minimal risks. <a href="#">Read consent form.</a>
+              </label>
+            </div>
+            <div class="terms-wrapper">
+              <input type="checkbox" id="consent3" name="consent3" required />
+              <label for="consent3" class="terms-text" style="text-transform:none;letter-spacing:0;font-size:0.85rem;font-weight:400;margin:0;color:#9090a8;">
+                I agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms &amp; Conditions</a> of LifeFlow Medical Foundation.
+              </label>
+            </div>
+            <div class="terms-wrapper" style="border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);">
+              <input type="checkbox" id="newsletter" name="newsletter" />
+              <label for="newsletter" class="terms-text" style="text-transform:none;letter-spacing:0;font-size:0.85rem;font-weight:400;margin:0;color:#9090a8;">
+                (Optional) I'd like to receive newsletters about upcoming blood donation camps and health tips.
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Hidden Fields -->
+          <input type="hidden" name="formVersion" value="2025-v3" />
+          <input type="hidden" name="registrationSource" value="web_portal" />
+
+          <!-- Submit -->
+          <button type="submit" class="btn-submit btn" id="submitBtn">
+            🩸 Submit Registration – Save a Life Today
+          </button>
+          <p class="text-center" style="margin-top:16px;font-size:0.82rem;">
+            <a href="#" id="resetFormBtn" style="color:#9090a8;">↺ Reset form</a>
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== SUCCESS OVERLAY ===== -->
+  <div class="success-overlay" id="successOverlay" role="dialog" aria-modal="true">
+    <div class="success-card">
+      <span class="success-icon">🎉</span>
+      <h2 class="success-title">Registration Successful!</h2>
+      <p class="success-desc" id="successMsg">
+        Thank you for registering as a blood donor! You are a true hero. 🩸<br/><br/>
+        A confirmation has been recorded with your registration details.
+      </p>
+      <div id="successDetails" style="background:rgba(220,20,60,0.1);border:1px solid rgba(220,20,60,0.25);border-radius:12px;padding:16px;margin-bottom:24px;font-size:0.85rem;color:#ff8fa3;">
+        📋 Bring a valid photo ID on camp day.<br/>
+        🕐 Arrive 15 minutes before your time slot.
+      </div>
+      <button class="btn-submit btn" onclick="closeSuccess()" style="width:auto;padding:14px 32px;">
+        Back to Home
+      </button>
+    </div>
+  </div>
+
+  <div class="page-divider"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><div class="nav-logo-icon">❤️</div><div class="nav-logo-text">Life<span>Flow</span></div></div>
+        <p>LifeFlow Medical Foundation is dedicated to ensuring an adequate and safe blood supply for patients in need.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">f</a><a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">📸</a><a href="#" class="social-btn">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+          <li><a href="eligibility.html">Eligibility</a></li><li><a href="register.html">Register Now</a></li>
+          <li><a href="schedule.html">Camp Schedule</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="eligibility.html">Donor Handbook</a></li><li><a href="eligibility.html">Blood Type Guide</a></li>
+          <li><a href="contact.html#faq">FAQs</a></li><li><a href="eligibility.html">Post-Donation Care</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal &amp; Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Consent Form</a></li><li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LifeFlow Medical Foundation. All rights reserved.</p>
+      <p>Made with <span style="color:#ff4d6d;">❤️</span> in Tamil Nadu, India.</p>
+    </div>
+  </footer>
+
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    // Auto-calculate age from DOB
+    document.getElementById('dob').addEventListener('change', function() {
+      const dob = new Date(this.value), today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+      document.getElementById('age').value = age > 0 ? age : '';
+    });
+
+    // Range slider
+    const slider = document.getElementById('donationCount');
+    slider.addEventListener('input', function() {
+      const val = this.value, pct = ((val - 0) / 50) * 100;
+      document.getElementById('donationCountDisplay').textContent =
+        val == 50 ? '50+ times' : val == 0 ? '0 times (First-timer)' : val + ' time' + (val > 1 ? 's' : '');
+      this.style.background = `linear-gradient(to right,#dc143c 0%,#dc143c ${pct}%,rgba(255,255,255,0.15) ${pct}%,rgba(255,255,255,0.15) 100%)`;
+    });
+
+    // File name display
+    document.getElementById('photoId').addEventListener('change', function() {
+      const d = document.getElementById('fileNameDisplay');
+      if (this.files[0]) d.textContent = '✓ File: ' + this.files[0].name;
+    });
+
+    // Set max for last donation date
+    document.getElementById('lastDonationDate').setAttribute('max', new Date().toISOString().split('T')[0]);
+
+    // Form submit — connected to backend API
+    document.getElementById('donorRegistrationForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (!this.checkValidity()) { this.reportValidity(); return; }
+      if (!document.getElementById('consent1').checked ||
+          !document.getElementById('consent2').checked ||
+          !document.getElementById('consent3').checked) {
+        alert('Please agree to all required consent declarations.'); return;
+      }
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = '⏳ Submitting...'; btn.disabled = true;
+
+      try {
+        const formData = new FormData(this);
+        const res  = await fetch(API_BASE + '/api/register', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          // Update success overlay with real details
+          document.getElementById('successMsg').innerHTML =
+            `Thank you, <strong style="color:#ff8fa3;">${htmlEsc(data.name)}</strong>! You are a true hero. 🩸<br/><br/>` +
+            `Your Donor ID is <strong style="color:#ff4d6d;">&#35;${data.donorId}</strong>. Keep this for camp-day reference.`;
+          document.getElementById('successDetails').innerHTML =
+            `🩸 Blood Group: <strong>${htmlEsc(data.bloodGroup)}</strong><br/>` +
+            `📋 Bring a valid photo ID on camp day.<br/>` +
+            `🕐 Arrive 15 minutes before your time slot.`;
+          document.getElementById('successOverlay').classList.add('show');
+        } else {
+          alert('Registration failed: ' + (data.message || 'Unknown error. Please try again.'));
+        }
+      } catch (err) {
+        alert('Could not reach the server. Make sure the backend is running on port 5000.\n\nError: ' + err.message);
+      } finally {
+        btn.textContent = '🩸 Submit Registration – Save a Life Today';
+        btn.disabled = false;
+      }
+    });
+
+    // Reset
+    document.getElementById('resetFormBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm('Reset form? All data will be lost.')) {
+        document.getElementById('donorRegistrationForm').reset();
+        document.getElementById('age').value = '';
+        document.getElementById('donationCountDisplay').textContent = '0 times';
+        document.getElementById('fileNameDisplay').textContent = '';
+      }
+    });
+
+    function closeSuccess() {
+      document.getElementById('successOverlay').classList.remove('show');
+      document.getElementById('donorRegistrationForm').reset();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    document.getElementById('successOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeSuccess();
+    });
+  </script>
+</body>
+</html>

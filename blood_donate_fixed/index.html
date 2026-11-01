@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="LifeFlow Blood Donation Camp – Register as a blood donor and save lives. Join thousands of heroes making a difference every day." />
+  <title>LifeFlow – Home | Blood Donation Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Internal CSS – Home page specific */
+    .blood-drop-container {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .blood-drop-svg {
+      width: 220px;
+      height: 280px;
+      animation: floatDrop 4s ease-in-out infinite;
+    }
+
+    @keyframes floatDrop {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .glow-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(220, 20, 60, 0.15);
+      animation: ringExpand 3s ease-out infinite;
+    }
+
+    .glow-ring:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      animation-delay: 0s;
+    }
+
+    .glow-ring:nth-child(2) {
+      width: 500px;
+      height: 500px;
+      animation-delay: 1s;
+    }
+
+    .glow-ring:nth-child(3) {
+      width: 700px;
+      height: 700px;
+      animation-delay: 2s;
+    }
+
+    @keyframes ringExpand {
+      0% {
+        opacity: 0.5;
+        transform: scale(0.8);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.2);
+      }
+    }
+
+    .urgent-box {
+      background: linear-gradient(135deg, rgba(220, 20, 60, 0.12), rgba(139, 0, 0, 0.08));
+      border: 1px solid rgba(220, 20, 60, 0.35);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .urgent-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .urgent-content h3 {
+      color: #ff4d6d;
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+    }
+
+    .urgent-content p {
+      font-size: 0.85rem;
+      color: #c0b8c8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Floating Particles -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">❤️</div>
+      <div class="nav-logo-text">Life<span>Flow</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="eligibility.html">Eligibility</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+    <div class="hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="site-header">
+    <section class="hero-section">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;">
+        <div class="glow-ring"></div>
+        <div class="glow-ring"></div>
+        <div class="glow-ring"></div>
+      </div>
+
+      <!-- SVG blood drop -->
+      <div class="blood-drop-container">
+        <svg class="blood-drop-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="dropGrad" cx="40%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#ff6b8a" />
+              <stop offset="100%" stop-color="#8b0000" />
+            </radialGradient>
+          </defs>
+          <path
+            d="M100 10 C100 10,20 120,20 170 C20 215 57 250 100 250 C143 250 180 215 180 170 C180 120 100 10 100 10Z"
+            fill="url(#dropGrad)" opacity="0.8" />
+          <path
+            d="M100 40 C100 40,50 130,50 170 C50 200 72 225 100 225 C128 225 150 200 150 170 C150 130 100 40 100 40Z"
+            fill="url(#dropGrad)" opacity="0.4" />
+          <text x="100" y="185" text-anchor="middle" font-size="40" font-family="Poppins" font-weight="800"
+            fill="rgba(255,255,255,0.9)">+</text>
+        </svg>
+      </div>
+
+      <div class="hero-badge"><span class="pulse-dot"></span>Blood Donation Camp 2025</div>
+
+      <h1 class="hero-title">
+        <span class="heartbeat">❤️</span> Be A Hero.<br />Donate Blood. Save Lives.
+      </h1>
+
+      <p class="hero-subtitle">
+        Every drop counts. Join the LifeFlow Blood Donation Camp and become part of a lifesaving community. Register
+        today and make a difference.
+      </p>
+
+      <!-- Inline CSS on stat cards -->
+      <div class="hero-stats">
+        <div class="stat-item"
+          style="padding:16px 24px;background:rgba(220,20,60,0.08);border-radius:14px;border:1px solid rgba(220,20,60,0.2);">
+          <span class="stat-number" id="statLivesSaved">12,500+</span>
+          <span class="stat-label">Lives Saved</span>
+        </div>
+        <div class="stat-item"
+          style="padding:16px 24px;background:rgba(220,20,60,0.08);border-radius:14px;border:1px solid rgba(220,20,60,0.2);">
+          <span class="stat-number" id="statActiveDonors">Loading...</span>
+          <span class="stat-label">Registered Donors</span>
+        </div>
+        <div class="stat-item"
+          style="padding:16px 24px;background:rgba(220,20,60,0.08);border-radius:14px;border:1px solid rgba(220,20,60,0.2);">
+          <span class="stat-number" id="statCamps">45+</span>
+          <span class="stat-label">Camps Organized</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="register.html" class="btn" id="btn-primary">🩸 Register Now – It's Free</a>
+        <a href="about.html" class="btn btn-secondary">▶ Learn More</a>
+      </div>
+    </section>
+  </header>
+
+  <div class="page-divider"></div>
+
+  <!-- ===== WHY IT MATTERS ===== -->
+  <main>
+    <section class="section">
+      <div class="section-header">
+        <span class="section-tag">Why It Matters</span>
+        <h2 class="section-title">Every 2 Seconds, Someone Needs Blood</h2>
+        <p class="section-desc">Blood donation is a simple act that can save up to three lives per donation. Your 30
+          minutes could mean the world to someone.</p>
+      </div>
+
+      <div class="urgent-box">
+        <div class="urgent-icon">🚨</div>
+        <div class="urgent-content">
+          <h3>Urgent Need: O-Negative Blood</h3>
+          <p>Our blood bank is critically low on O-Negative (universal donor) blood. If you are O-Negative, your
+            donation is especially life-saving right now.</p>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="card-icon">🏥</div>
+          <h3 class="card-title">Safe &amp; Medically Supervised</h3>
+          <p class="card-text">All donations are performed by certified medical professionals in a sterile environment.
+            New needles are used for every donor — 100% safe.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">⏱️</div>
+          <h3 class="card-title">Only 30 Minutes</h3>
+          <p class="card-text">The actual blood donation takes just 8–10 minutes. Including registration and health
+            screening, the full process is about 30 minutes.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">💪</div>
+          <h3 class="card-title">Good For Your Health</h3>
+          <p class="card-text">Regular blood donation helps reduce harmful iron stores, stimulates blood cell
+            production, and provides a free mini health check-up.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">🎁</div>
+          <h3 class="card-title">Donor Benefits</h3>
+          <p class="card-text">All donors receive a complimentary health kit, refreshments, a donor certificate, and
+            priority blood access for themselves and family members.</p>
+        </div>
+      </div>
+
+      <!-- CTA Banner -->
+      <div style="text-align:center;margin-top:20px;">
+        <a href="register.html" class="btn" id="btn-primary" style="font-size:1rem;padding:16px 36px;">
+          🩸 Register as a Donor Today
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div class="page-divider"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-logo-icon">❤️</div>
+          <div class="nav-logo-text">Life<span>Flow</span></div>
+        </div>
+        <p>LifeFlow Medical Foundation is dedicated to ensuring an adequate and safe blood supply for patients in need.
+          Every donation saves up to three lives.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">📸</a>
+          <a href="#" class="social-btn">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="eligibility.html">Eligibility</a></li>
+          <li><a href="register.html">Register Now</a></li>
+          <li><a href="schedule.html">Camp Schedule</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="eligibility.html">Donor Handbook</a></li>
+          <li><a href="eligibility.html">Blood Type Guide</a></li>
+          <li><a href="contact.html#faq">FAQs</a></li>
+          <li><a href="eligibility.html">Post-Donation Care</a></li>
+          <li><a href="schedule.html">Partner Hospitals</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal &amp; Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Consent Form</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="contact.html">Volunteer With Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LifeFlow Medical Foundation. All rights reserved.</p>
+      <p>Made with <span style="color:#ff4d6d;">❤️</span> in Tamil Nadu, India.</p>
+    </div>
+  </footer>
+
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    // Load live stats from backend
+    (async function loadStats() {
+      try {
+        const res = await fetch(API_BASE + '/api/stats');
+        const data = await res.json();
+        if (data.success) {
+          const donorEl = document.getElementById('statActiveDonors');
+          if (donorEl) {
+            const count = data.totalDonors || 0;
+            donorEl.textContent = count.toLocaleString('en-IN') + (count > 0 ? '' : '');
+          }
+        }
+      } catch (e) {
+        // Backend not running – fall back to placeholder
+        const donorEl = document.getElementById('statActiveDonors');
+        if (donorEl) donorEl.textContent = '—';
+      }
+    })();
+  </script>
+</body>
+
+</html>

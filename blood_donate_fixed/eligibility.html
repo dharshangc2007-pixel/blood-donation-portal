@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Check your eligibility to donate blood at LifeFlow Blood Donation Camp. Learn the criteria, blood types accepted, and donation frequency." />
+  <title>LifeFlow – Eligibility | Blood Donation Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Internal CSS – Eligibility page */
+    .page-hero {
+      padding: 160px 20px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(220,20,60,0.12) 0%, transparent 65%);
+    }
+    .page-hero h1 { color: #fff; margin-bottom: 16px; }
+    .page-hero p  { max-width: 580px; margin: 0 auto; font-size: 1rem; }
+
+    .elig-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 60px;
+    }
+
+    .freq-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .freq-table th {
+      background: rgba(220,20,60,0.15);
+      color: #ff4d6d;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(220,20,60,0.25);
+    }
+    .freq-table td {
+      padding: 13px 18px;
+      font-size: 0.88rem;
+      color: #c0b8c8;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .freq-table tr:last-child td { border-bottom: none; }
+    .freq-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .freq-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(220,20,60,0.15);
+      color: #ff6b8a;
+      border: 1px solid rgba(220,20,60,0.25);
+    }
+
+    .checker-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 24px;
+      padding: 36px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .checker-box h3 { color: #fff; margin-bottom: 20px; }
+    .checker-result {
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 20px;
+      display: none;
+    }
+    .result-yes {
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #4ade80;
+    }
+    .result-no {
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #f87171;
+    }
+    .checker-btn {
+      background: linear-gradient(135deg,#dc143c,#8b0000);
+      color: #fff;
+      border: none;
+      padding: 13px 28px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+    .checker-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(220,20,60,0.4); }
+
+    @media (max-width: 768px) {
+      .elig-two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">❤️</div>
+      <div class="nav-logo-text">Life<span>Flow</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="eligibility.html" class="nav-active">Eligibility</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HERO ===== -->
+  <div class="page-hero">
+    <span class="section-tag">Who Can Donate</span>
+    <h1>Eligibility Criteria</h1>
+    <p>Check if you meet the requirements before visiting a LifeFlow Blood Donation Camp. Use the eligibility checker below.</p>
+  </div>
+
+  <main>
+    <section class="section" style="padding-top:20px;">
+
+      <!-- Two-column: checklist + blood types -->
+      <div class="elig-two-col">
+
+        <!-- Requirements Checklist -->
+        <div>
+          <h3 class="text-white mb-24">Requirements Checklist</h3>
+          <ul class="eligibility-list">
+            <li><span class="check-icon check-yes">✓</span>Age between 18 and 65 years old</li>
+            <li><span class="check-icon check-yes">✓</span>Body weight of at least 50 kg (110 lbs)</li>
+            <li><span class="check-icon check-yes">✓</span>Hemoglobin ≥ 12.5 g/dL (women) or ≥ 13.0 g/dL (men)</li>
+            <li><span class="check-icon check-yes">✓</span>Blood pressure: 90/60 – 180/100 mmHg</li>
+            <li><span class="check-icon check-yes">✓</span>Pulse rate: 60 – 100 beats per minute</li>
+            <li><span class="check-icon check-yes">✓</span>No active infections or illnesses on donation day</li>
+            <li><span class="check-icon check-yes">✓</span>At least 3 months since last whole blood donation</li>
+            <li><span class="check-icon check-yes">✓</span>Had a good meal 2–3 hours before donating</li>
+            <li><span class="check-icon check-no">✗</span>Pregnancy or breastfeeding (temporary deferral)</li>
+            <li><span class="check-icon check-no">✗</span>Recent surgery or major dental work within 6 months</li>
+            <li><span class="check-icon check-no">✗</span>History of HIV, Hepatitis B/C, or other bloodborne diseases</li>
+            <li><span class="check-icon check-no">✗</span>Taking blood thinners or certain antibiotics</li>
+          </ul>
+        </div>
+
+        <!-- Blood Types & Frequency -->
+        <div>
+          <h3 class="text-white mb-24">All Blood Types Welcome</h3>
+          <div class="blood-type-grid">
+            <div class="blood-type-card"><span class="blood-type-symbol">A+</span><span class="blood-type-label">Common</span></div>
+            <div class="blood-type-card"><span class="blood-type-symbol">A−</span><span class="blood-type-label">Rare</span></div>
+            <div class="blood-type-card"><span class="blood-type-symbol">B+</span><span class="blood-type-label">Common</span></div>
+            <div class="blood-type-card"><span class="blood-type-symbol">B−</span><span class="blood-type-label">Rare</span></div>
+            <div class="blood-type-card"><span class="blood-type-symbol">AB+</span><span class="blood-type-label">Universal Rec.</span></div>
+            <div class="blood-type-card"><span class="blood-type-symbol">AB−</span><span class="blood-type-label">Very Rare</span></div>
+            <div class="blood-type-card" style="border-color:rgba(220,20,60,0.6);background:rgba(220,20,60,0.2);"><span class="blood-type-symbol">O+</span><span class="blood-type-label">Most Common</span></div>
+            <div class="blood-type-card" style="border-color:rgba(220,20,60,0.8);background:rgba(220,20,60,0.3);"><span class="blood-type-symbol">O−</span><span class="blood-type-label">🚨 Urgent</span></div>
+          </div>
+
+          <!-- Frequency Table -->
+          <h3 class="text-white mt-16 mb-8" style="margin-top:32px;">Donation Frequency</h3>
+          <table class="freq-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Minimum Gap</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🩸 Whole Blood</td>
+                <td><span class="freq-badge">Every 3 months</span></td>
+                <td>8–10 minutes</td>
+              </tr>
+              <tr>
+                <td>🧪 Platelets</td>
+                <td><span class="freq-badge">Every 2 weeks</span></td>
+                <td>60–90 minutes</td>
+              </tr>
+              <tr>
+                <td>💉 Plasma</td>
+                <td><span class="freq-badge">Every 4 weeks</span></td>
+                <td>30–45 minutes</td>
+              </tr>
+              <tr>
+                <td>🔴 Double Red Cells</td>
+                <td><span class="freq-badge">Every 4 months</span></td>
+                <td>30–45 minutes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page-divider" style="margin-bottom:60px;"></div>
+
+      <!-- Quick Eligibility Checker -->
+      <div class="section-header">
+        <span class="section-tag">Self-Assessment</span>
+        <h2 class="section-title">Quick Eligibility Checker</h2>
+        <p class="section-desc">Answer a few questions to get a preliminary eligibility assessment. This does not replace the on-site medical screening.</p>
+      </div>
+
+      <div class="checker-box">
+        <form id="eligibilityChecker" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="chkAge">Your Age <span class="required">*</span></label>
+              <input type="number" id="chkAge" class="form-control" placeholder="e.g. 28" min="1" max="120" required />
+            </div>
+            <div class="form-group">
+              <label for="chkWeight">Your Weight (kg) <span class="required">*</span></label>
+              <input type="number" id="chkWeight" class="form-control" placeholder="e.g. 65" min="1" max="300" required />
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:8px;">
+            <label>Do you have any active illness or infection?</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="illness" value="no" required /> No</label>
+              <label class="radio-option"><input type="radio" name="illness" value="yes" /> Yes</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Are you pregnant or breastfeeding?</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="pregnant" value="no" required /> No</label>
+              <label class="radio-option"><input type="radio" name="pregnant" value="yes" /> Yes</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>History of HIV, Hepatitis B/C, or bloodborne disease?</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="history" value="no" required /> No</label>
+              <label class="radio-option"><input type="radio" name="history" value="yes" /> Yes</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Have you had surgery or major dental work in the last 6 months?</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="surgery" value="no" required /> No</label>
+              <label class="radio-option"><input type="radio" name="surgery" value="yes" /> Yes</label>
+            </div>
+          </div>
+
+          <button type="submit" class="checker-btn">Check My Eligibility →</button>
+
+          <div id="checkerResult" class="checker-result"></div>
+        </form>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="page-divider"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><div class="nav-logo-icon">❤️</div><div class="nav-logo-text">Life<span>Flow</span></div></div>
+        <p>LifeFlow Medical Foundation is dedicated to ensuring an adequate and safe blood supply for patients in need.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">f</a><a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">📸</a><a href="#" class="social-btn">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+          <li><a href="eligibility.html">Eligibility</a></li><li><a href="register.html">Register Now</a></li>
+          <li><a href="schedule.html">Camp Schedule</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="eligibility.html">Donor Handbook</a></li><li><a href="eligibility.html">Blood Type Guide</a></li>
+          <li><a href="contact.html#faq">FAQs</a></li><li><a href="eligibility.html">Post-Donation Care</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal &amp; Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Consent Form</a></li><li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LifeFlow Medical Foundation. All rights reserved.</p>
+      <p>Made with <span style="color:#ff4d6d;">❤️</span> in Tamil Nadu, India.</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    // Eligibility Checker Logic
+    document.getElementById('eligibilityChecker').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const age      = parseInt(document.getElementById('chkAge').value);
+      const weight   = parseInt(document.getElementById('chkWeight').value);
+      const illness  = document.querySelector('input[name="illness"]:checked');
+      const pregnant = document.querySelector('input[name="pregnant"]:checked');
+      const history  = document.querySelector('input[name="history"]:checked');
+      const surgery  = document.querySelector('input[name="surgery"]:checked');
+      const result   = document.getElementById('checkerResult');
+
+      if (!age || !weight || !illness || !pregnant || !history || !surgery) {
+        result.style.display = 'block';
+        result.className = 'checker-result result-no';
+        result.innerHTML = '⚠️ Please answer all questions to check eligibility.';
+        return;
+      }
+
+      const disqualified =
+        age < 18 || age > 65 ||
+        weight < 50 ||
+        illness.value  === 'yes' ||
+        pregnant.value === 'yes' ||
+        history.value  === 'yes' ||
+        surgery.value  === 'yes';
+
+      result.style.display = 'block';
+      if (disqualified) {
+        result.className = 'checker-result result-no';
+        result.innerHTML = '❌ Based on your answers, you may not be eligible to donate at this time. Please consult with our medical team for a proper assessment.';
+      } else {
+        result.className = 'checker-result result-yes';
+        result.innerHTML = '✅ Great news! You appear to be eligible to donate blood. <a href="register.html" style="color:#4ade80;font-weight:600;">Register now →</a>';
+      }
+    });
+  </script>
+</body>
+</html>

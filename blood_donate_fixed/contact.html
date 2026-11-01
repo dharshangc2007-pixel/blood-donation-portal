@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact LifeFlow Blood Donation Camp. Get in touch via phone, email, or visit us. Find answers in our FAQ section." />
+  <title>LifeFlow – Contact | Blood Donation Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Internal CSS – Contact page */
+    .page-hero {
+      padding: 160px 20px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(220,20,60,0.12) 0%, transparent 65%);
+    }
+    .page-hero h1 { color: #fff; margin-bottom: 16px; }
+    .page-hero p  { max-width: 540px; margin: 0 auto; font-size: 1rem; }
+
+    /* Contact layout */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 50px;
+      align-items: start;
+      margin-bottom: 70px;
+    }
+
+    /* Contact form card */
+    .contact-form-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+    .contact-form-card h3 {
+      color: #fff;
+      margin-bottom: 6px;
+      font-size: 1.25rem;
+    }
+    .contact-form-card > p {
+      color: #9090a8;
+      font-size: 0.85rem;
+      margin-bottom: 28px;
+    }
+
+    /* Map embed container */
+    .map-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #9090a8;
+      font-size: 2rem;
+      margin-top: 16px;
+      transition: border-color 0.3s ease;
+    }
+    .map-card:hover { border-color: rgba(220,20,60,0.2); }
+    .map-card p { font-size: 0.85rem; text-align: center; max-width: 220px; }
+
+    /* Social links row */
+    .social-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: #c0b8c8;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .social-link:hover {
+      border-color: rgba(220,20,60,0.35);
+      background: rgba(220,20,60,0.08);
+      color: #ff8fa3;
+      transform: translateY(-2px);
+    }
+
+    /* Submit feedback */
+    .contact-success {
+      display: none;
+      padding: 14px 20px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 12px;
+      color: #4ade80;
+      font-size: 0.88rem;
+      margin-top: 16px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .contact-wrapper { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">❤️</div>
+      <div class="nav-logo-text">Life<span>Flow</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="eligibility.html">Eligibility</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="contact.html" class="nav-active">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HERO ===== -->
+  <div class="page-hero">
+    <span class="section-tag">Get In Touch</span>
+    <h1>Contact LifeFlow</h1>
+    <p>Have a question, want to volunteer, or need help with your registration? We're available 7 days a week.</p>
+  </div>
+
+  <main>
+    <section class="section" style="padding-top: 20px;">
+
+      <!-- ===== CONTACT GRID ===== -->
+      <div class="contact-wrapper">
+
+        <!-- LEFT: Info + Map -->
+        <div>
+          <h3 style="color:#fff;margin-bottom:24px;font-size:1.15rem;">Our Contact Information</h3>
+
+          <div class="contact-info-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-detail">
+              <h4>Helpline (24×7)</h4>
+              <p>+91 1800-200-BLOOD (25663)</p>
+              <p style="font-size:0.78rem;color:#606078;margin-top:2px;">Toll-free · Available 24 hours</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon">📧</div>
+            <div class="contact-detail">
+              <h4>Email Support</h4>
+              <p><a href="mailto:donate@lifeflow.org.in">donate@lifeflow.org.in</a></p>
+              <p style="font-size:0.78rem;color:#606078;margin-top:2px;">Response within 2 business hours</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon">🏥</div>
+            <div class="contact-detail">
+              <h4>Main Blood Bank</h4>
+              <p>No. 12, Mount Road, Teynampet,<br/>Chennai – 600018, Tamil Nadu</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-detail">
+              <h4>Operating Hours</h4>
+              <p>Monday – Saturday: 8:00 AM – 8:00 PM</p>
+              <p>Sunday &amp; Holidays: 9:00 AM – 4:00 PM</p>
+            </div>
+          </div>
+
+          <!-- Social Media -->
+          <h4 style="color:#fff;margin:24px 0 12px;font-size:0.9rem;">Follow Us</h4>
+          <div class="social-row">
+            <a href="#" class="social-link">f Facebook</a>
+            <a href="#" class="social-link">𝕏 Twitter</a>
+            <a href="#" class="social-link">📸 Instagram</a>
+            <a href="#" class="social-link">in LinkedIn</a>
+          </div>
+
+          <!-- Map placeholder -->
+          <div class="map-card">
+            <span>🗺️</span>
+            <p style="color:#ff4d6d;font-weight:600;font-size:0.95rem;margin:0;">Main Blood Bank</p>
+            <p>No. 12, Mount Road, Teynampet, Chennai – 600018</p>
+            <a href="https://maps.google.com" target="_blank" rel="noopener"
+               class="btn btn-secondary" style="font-size:0.8rem;padding:9px 18px;margin-top:4px;">
+              Open in Google Maps ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT: Contact Form -->
+        <div class="contact-form-card">
+          <h3>Send Us a Message</h3>
+          <p>Fill in the form below and our team will get back to you within 2 hours during working hours.</p>
+
+          <form id="contactForm" action="#" method="POST" novalidate>
+
+            <!-- Name row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cName">Full Name <span class="required">*</span></label>
+                <input type="text" id="cName" name="cName" class="form-control"
+                  placeholder="e.g. Ananya Krishnan" required minlength="3"
+                  autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="cEmail">Email Address <span class="required">*</span></label>
+                <input type="email" id="cEmail" name="cEmail" class="form-control"
+                  placeholder="you@example.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <!-- Phone + Subject -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cPhone">Phone Number</label>
+                <input type="tel" id="cPhone" name="cPhone" class="form-control"
+                  placeholder="+91 98765 43210" autocomplete="tel"
+                  pattern="[+]?[0-9\s\-]{10,15}" />
+              </div>
+              <div class="form-group">
+                <label for="cSubject">Subject <span class="required">*</span></label>
+                <select id="cSubject" name="cSubject" class="form-control" required>
+                  <option value="" disabled selected>Select a topic</option>
+                  <option value="registration">Registration Help</option>
+                  <option value="eligibility">Eligibility Query</option>
+                  <option value="schedule">Camp Schedule</option>
+                  <option value="volunteer">Volunteer / Partner</option>
+                  <option value="emergency">Emergency Blood Request</option>
+                  <option value="media">Media / Press</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Inquiry type radio -->
+            <div class="form-group">
+              <label>Inquiry Type <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="inquiryType" value="general" required checked />
+                  General Query
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="inquiryType" value="emergency" />
+                  🚨 Emergency
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="inquiryType" value="feedback" />
+                  Feedback
+                </label>
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-group">
+              <label for="cMessage">Message <span class="required">*</span></label>
+              <textarea id="cMessage" name="cMessage" class="form-control"
+                placeholder="Describe your query in detail. For emergency blood requests, please mention blood type, hospital name, and contact number."
+                required rows="5" minlength="20" maxlength="1000"></textarea>
+            </div>
+
+            <!-- Attachment -->
+            <div class="form-group">
+              <label for="cAttachment">Attach a File (optional)</label>
+              <div class="file-upload-wrapper">
+                <label class="file-upload-label" for="cAttachment" style="padding:20px;">
+                  <span style="font-size:1.8rem;">📎</span>
+                  <span class="file-upload-text">
+                    <strong>Click to attach</strong> – JPG, PNG, PDF (Max 5MB)
+                  </span>
+                </label>
+                <input type="file" id="cAttachment" name="cAttachment" class="file-input"
+                  accept=".jpg,.jpeg,.png,.pdf" />
+              </div>
+            </div>
+
+            <!-- How urgent -->
+            <div class="form-group">
+              <label for="cUrgency">How Urgent Is Your Query?</label>
+              <div class="range-wrapper">
+                <input type="range" class="range-slider" id="cUrgency" name="cUrgency"
+                  min="1" max="5" value="1" step="1" />
+                <div class="range-labels">
+                  <span>Not urgent</span>
+                  <span>Moderate</span>
+                  <span>Very urgent</span>
+                </div>
+                <div class="range-value" id="urgencyDisplay" style="font-size:1rem;">Not urgent</div>
+              </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="form-group">
+              <label class="checkbox-option" style="display:inline-flex;background:transparent;border:none;padding:0;gap:10px;font-size:0.85rem;color:#9090a8;">
+                <input type="checkbox" name="cNewsletter" style="accent-color:#dc143c;width:16px;height:16px;" />
+                Subscribe me to LifeFlow camp announcements and health updates
+              </label>
+            </div>
+
+            <!-- Hidden -->
+            <input type="hidden" name="formSource" value="contact_page" />
+
+            <button type="submit" class="btn-submit btn" id="contactSubmitBtn">
+              📩 Send Message
+            </button>
+
+            <div class="contact-success" id="contactSuccess">
+              ✅ Message sent successfully! Our team will respond within 2 hours.
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="page-divider" style="margin-bottom:60px;"></div>
+
+      <!-- ===== FAQ SECTION ===== -->
+      <div class="section-header" id="faq">
+        <span class="section-tag">Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Quick answers to the most common questions about blood donation, eligibility, and the LifeFlow camp experience.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            Is blood donation safe for the donor?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Absolutely. Blood donation is completely safe. We use only sterile, single-use equipment for every donor. A registered medical professional performs a health screening before donation. The human body replaces donated blood within 4–6 weeks.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            How long does the entire donation process take?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              The actual blood draw takes about 8–10 minutes. However, including registration, health screening, and post-donation refreshments, plan for approximately 45–60 minutes total.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            What should I do before coming to donate?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Eat a healthy meal 2–3 hours before donating. Stay well-hydrated. Avoid alcohol and fatty foods for 24 hours beforehand. Get adequate sleep. Wear comfortable clothing with sleeves that can be rolled up easily.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            How often can I donate blood?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Whole blood can be donated every 3 months (90 days). Platelets can be donated every 2 weeks. Plasma can be donated every 4 weeks. Double red cell donations are allowed every 4 months.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            Can I donate if I have diabetes or hypertension?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              It depends on how well the condition is controlled. Well-controlled Type 2 diabetes (without insulin injections) may be eligible. Our medical team will assess during the on-site health screening. Please disclose all conditions during registration.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            What do I receive for donating blood?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              All donors receive: a complimentary health screening report, post-donation refreshments and snacks, an official LifeFlow Donor Certificate, a health care kit, and priority blood access for yourself and immediate family members for 1 year.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            How do I make an emergency blood request?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Call our 24×7 helpline at <strong style="color:#ff4d6d;">+91 1800-200-25663</strong> for immediate assistance. You can also email <a href="mailto:donate@lifeflow.org.in">donate@lifeflow.org.in</a> with the subject "URGENT" and provide the blood type, hospital name, patient details, and your contact number.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" type="button" aria-expanded="false">
+            Can I volunteer or organize a camp with LifeFlow?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Absolutely! We welcome volunteers and corporate/institutional partners. Use the contact form above (select "Volunteer / Partner" as subject) or email us at <a href="mailto:donate@lifeflow.org.in">donate@lifeflow.org.in</a>. We'll connect you with our Community Outreach Manager.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="page-divider"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><div class="nav-logo-icon">❤️</div><div class="nav-logo-text">Life<span>Flow</span></div></div>
+        <p>LifeFlow Medical Foundation is dedicated to ensuring an adequate and safe blood supply for patients in need. Every donation saves up to three lives.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">f</a><a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">📸</a><a href="#" class="social-btn">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+          <li><a href="eligibility.html">Eligibility</a></li><li><a href="register.html">Register Now</a></li>
+          <li><a href="schedule.html">Camp Schedule</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="eligibility.html">Donor Handbook</a></li><li><a href="eligibility.html">Blood Type Guide</a></li>
+          <li><a href="contact.html#faq">FAQs</a></li><li><a href="eligibility.html">Post-Donation Care</a></li>
+          <li><a href="schedule.html">Partner Hospitals</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal &amp; Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Consent Form</a></li><li><a href="#">Accessibility</a></li>
+          <li><a href="contact.html">Volunteer With Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LifeFlow Medical Foundation. All rights reserved.</p>
+      <p>Made with <span style="color:#ff4d6d;">❤️</span> in Tamil Nadu, India.</p>
+    </div>
+  </footer>
+
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    // FAQ Toggle
+    function toggleFAQ(btn) {
+      const answer = btn.nextElementSibling;
+      const icon   = btn.querySelector('.faq-icon');
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(el => el.classList.remove('open'));
+      document.querySelectorAll('.faq-icon').forEach(el => { el.textContent = '+'; });
+      document.querySelectorAll('.faq-question').forEach(el => el.setAttribute('aria-expanded','false'));
+      if (!isOpen) {
+        answer.classList.add('open');
+        icon.textContent = '−';
+        btn.setAttribute('aria-expanded','true');
+      }
+    }
+
+    // Urgency range slider
+    const urgencyLevels = ['', 'Not urgent', 'Low priority', 'Moderate', 'High priority', '🚨 Very urgent'];
+    document.getElementById('cUrgency').addEventListener('input', function() {
+      const val = this.value;
+      const pct = ((val - 1) / 4) * 100;
+      document.getElementById('urgencyDisplay').textContent = urgencyLevels[val];
+      this.style.background = `linear-gradient(to right,#dc143c 0%,#dc143c ${pct}%,rgba(255,255,255,0.15) ${pct}%,rgba(255,255,255,0.15) 100%)`;
+    });
+
+    // Contact form submit — connected to backend API
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (!this.checkValidity()) { this.reportValidity(); return; }
+      const btn = document.getElementById('contactSubmitBtn');
+      btn.textContent = '⏳ Sending...'; btn.disabled = true;
+
+      const formEl = this;
+      const data = {
+        cName:       document.getElementById('cName').value.trim(),
+        cEmail:      document.getElementById('cEmail').value.trim(),
+        cPhone:      document.getElementById('cPhone').value.trim(),
+        cSubject:    document.getElementById('cSubject').value,
+        inquiryType: document.querySelector('input[name="inquiryType"]:checked')?.value || 'general',
+        cMessage:    document.getElementById('cMessage').value.trim(),
+        cUrgency:    document.getElementById('cUrgency').value,
+        cNewsletter: document.querySelector('input[name="cNewsletter"]').checked ? 'true' : 'false'
+      };
+
+      try {
+        const res  = await fetch(API_BASE + '/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          const successEl = document.getElementById('contactSuccess');
+          successEl.textContent = '✅ ' + result.message;
+          successEl.style.display = 'block';
+          formEl.reset();
+          document.getElementById('urgencyDisplay').textContent = 'Not urgent';
+          document.getElementById('cUrgency').style.background = '';
+          // Auto-hide success message after 8 seconds
+          setTimeout(() => { successEl.style.display = 'none'; }, 8000);
+        } else {
+          alert('Failed to send: ' + (result.message || 'Please try again.'));
+        }
+      } catch (err) {
+        alert('Could not reach the server. Make sure the backend is running on port 5000.\n\nError: ' + err.message);
+      } finally {
+        btn.textContent = '📩 Send Message';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

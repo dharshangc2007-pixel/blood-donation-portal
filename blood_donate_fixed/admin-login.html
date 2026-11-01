@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LifeFlow Admin Login – Secure access for administrators." />
+  <title>LifeFlow – Admin Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { font-size:16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0f;
+      color: #f0f0f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220,20,60,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,0,0,0.15) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    /* Floating particles */
+    .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-100px) scale(1); opacity: 0; }
+    }
+
+    /* Login card */
+    .login-wrapper {
+      position: relative; z-index: 10;
+      width: 100%; max-width: 440px;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 28px;
+      padding: 48px 44px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(220,20,60,0.1);
+      animation: scaleIn 0.5s ease forwards;
+    }
+    @keyframes scaleIn {
+      from { opacity:0; transform:scale(0.92) translateY(20px); }
+      to   { opacity:1; transform:scale(1) translateY(0); }
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .logo-icon {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg,#dc143c,#8b0000);
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 20px rgba(220,20,60,0.5);
+    }
+    .logo-text { font-family: 'Poppins',sans-serif; font-size: 1.2rem; font-weight: 700; color: #fff; }
+    .logo-text span { color: #ff4d6d; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(220,20,60,0.12);
+      border: 1px solid rgba(220,20,60,0.3);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #ff6b8a;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .badge .dot { width:7px; height:7px; background:#ff4d6d; border-radius:50%; animation:pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+    h1 {
+      font-family: 'Poppins',sans-serif;
+      font-size: 1.7rem;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .subtitle { font-size: 0.875rem; color: #9090a8; margin-bottom: 36px; }
+
+    /* Form elements */
+    .form-group { margin-bottom: 20px; }
+    label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #a0a0b8;
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .input-wrap { position: relative; }
+    .input-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; pointer-events: none; user-select: none;
+    }
+    input {
+      width: 100%;
+      padding: 13px 16px 13px 44px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      color: #f0f0f5;
+      font-size: 0.95rem;
+      font-family: 'Inter',sans-serif;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    input:focus {
+      border-color: #dc143c;
+      background: rgba(220,20,60,0.08);
+      box-shadow: 0 0 0 3px rgba(220,20,60,0.15);
+    }
+    input::placeholder { color: #606078; }
+
+    .toggle-pwd {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #9090a8;
+      font-size: 1rem; transition: color 0.2s;
+    }
+    .toggle-pwd:hover { color: #ff4d6d; }
+
+    .btn-login {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg,#dc143c,#8b0000);
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Inter',sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(220,20,60,0.4);
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-login::before {
+      content: '';
+      position: absolute; top:50%; left:50%;
+      width:0; height:0;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: width 0.4s, height 0.4s;
+    }
+    .btn-login:hover::before { width:400px; height:400px; }
+    .btn-login:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(220,20,60,0.55); }
+    .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Alert */
+    .alert {
+      display: none;
+      padding: 13px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
+    .alert-error {
+      background: rgba(220,20,60,0.12);
+      border: 1px solid rgba(220,20,60,0.35);
+      color: #ff8fa3;
+    }
+    .alert-success {
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #4ade80;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 32px 0 0;
+      font-size: 0.78rem;
+      color: #5a5a78;
+    }
+    .divider a { color: #ff4d6d; text-decoration: none; }
+    .divider a:hover { color: #ff8fa3; }
+
+    /* Spinner */
+    .spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:8px; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+
+    /* Responsive */
+    @media (max-width:480px) {
+      .login-card { padding: 36px 28px; }
+      h1 { font-size: 1.45rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+
+      <div class="logo-row">
+        <div class="logo-icon">❤️</div>
+        <div class="logo-text">Life<span>Flow</span></div>
+      </div>
+
+      <div class="badge"><span class="dot"></span>Admin Portal</div>
+      <h1>Welcome back,<br/>Administrator</h1>
+      <p class="subtitle">Sign in to manage donors, requests and statistics.</p>
+
+      <div class="alert alert-error" id="alertBox" role="alert" aria-live="polite"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input
+              type="text" id="username" name="username"
+              placeholder="admin" required
+              autocomplete="username" spellcheck="false"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input
+              type="password" id="password" name="password"
+              placeholder="••••••••" required
+              autocomplete="current-password"
+            />
+            <button type="button" class="toggle-pwd" id="togglePwd" aria-label="Show/hide password">👁</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="loginBtn">
+          🔐 Sign In to Dashboard
+        </button>
+      </form>
+
+      <div class="divider">
+        <a href="index.html">← Back to LifeFlow Portal</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script>
+    // Particles
+    (function() {
+      const c = document.getElementById('particles');
+      const colors = ['rgba(220,20,60,0.35)','rgba(255,107,138,0.22)','rgba(139,0,0,0.28)'];
+      for (let i = 0; i < 15; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = (2 + Math.random() * 4) + 'px';
+        p.style.cssText = `
+          width:${size}; height:${size};
+          background:${colors[i%3]};
+          left:${Math.random()*100}%;
+          animation-duration:${9+Math.random()*10}s;
+          animation-delay:${Math.random()*8}s;
+        `;
+        c.appendChild(p);
+      }
+    })();
+
+    // Password toggle
+    document.getElementById('togglePwd').addEventListener('click', function() {
+      const inp = document.getElementById('password');
+      const isHidden = inp.type === 'password';
+      inp.type = isHidden ? 'text' : 'password';
+      this.textContent = isHidden ? '🙈' : '👁';
+    });
+
+    // Check if already logged in
+    const stored = sessionStorage.getItem('lf_admin_token') || localStorage.getItem('lf_admin_token');
+    if (stored) {
+      window.location.href = 'admin.html';
+    }
+
+    // Form submit
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const btn      = document.getElementById('loginBtn');
+      const alert    = document.getElementById('alertBox');
+
+      if (!username || !password) {
+        showAlert('Please enter both username and password.', 'error');
+        return;
+      }
+
+      btn.innerHTML = '<span class="spinner"></span>Signing in…';
+      btn.disabled  = true;
+      alert.style.display = 'none';
+
+      try {
+        const res  = await fetch(API_BASE + '/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          // Store token in sessionStorage (cleared when tab closes)
+          sessionStorage.setItem('lf_admin_token', data.token);
+          sessionStorage.setItem('lf_admin_user', data.username || username);
+          showAlert('Login successful! Redirecting…', 'success');
+          setTimeout(() => { window.location.href = 'admin.html'; }, 800);
+        } else {
+          showAlert(data.message || 'Invalid credentials.', 'error');
+        }
+      } catch (err) {
+        showAlert('Cannot reach the server. Make sure server.py is running on port 5000.', 'error');
+      } finally {
+        btn.innerHTML = '🔐 Sign In to Dashboard';
+        btn.disabled  = false;
+      }
+    });
+
+    function showAlert(msg, type) {
+      const el = document.getElementById('alertBox');
+      el.textContent   = msg;
+      el.className     = 'alert alert-' + type;
+      el.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

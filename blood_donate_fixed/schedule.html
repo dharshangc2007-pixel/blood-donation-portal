@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="View all upcoming LifeFlow Blood Donation Camp schedules across Tamil Nadu. Find a camp near you and book your slot." />
+  <title>LifeFlow – Schedule | Blood Donation Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Internal CSS – Schedule page */
+    .page-hero {
+      padding: 160px 20px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(220,20,60,0.12) 0%, transparent 65%);
+    }
+    .page-hero h1 { color: #fff; margin-bottom: 16px; }
+    .page-hero p  { max-width: 580px; margin: 0 auto; font-size: 1rem; }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+    }
+    .filter-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #9090a8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: #c0b8c8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(220,20,60,0.2);
+      border-color: rgba(220,20,60,0.45);
+      color: #ff8fa3;
+    }
+    .filter-search {
+      margin-left: auto;
+      padding: 9px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      color: #f0f0f5;
+      font-size: 0.85rem;
+      outline: none;
+      width: 220px;
+      transition: border-color 0.3s ease;
+    }
+    .filter-search:focus {
+      border-color: rgba(220,20,60,0.4);
+    }
+    .filter-search::placeholder { color: #606078; }
+
+    /* Camp list table view toggle */
+    .view-toggle {
+      display: flex;
+      gap: 8px;
+      margin-left: 8px;
+    }
+    .view-btn {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: #9090a8;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .view-btn.active {
+      background: rgba(220,20,60,0.2);
+      border-color: rgba(220,20,60,0.4);
+      color: #ff4d6d;
+    }
+
+    /* Enhanced schedule card */
+    .schedule-card .camp-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #9090a8;
+      margin-bottom: 6px;
+    }
+    .camp-register-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 9px 20px;
+      background: linear-gradient(135deg, #dc143c, #8b0000);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .camp-register-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(220,20,60,0.4);
+      color: #fff;
+    }
+    .camp-register-btn.disabled {
+      background: rgba(255,255,255,0.08);
+      color: #606078;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* List view */
+    .schedule-list-view { display: none; }
+    .schedule-list-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr auto;
+      gap: 20px;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .schedule-list-item:hover {
+      border-color: rgba(220,20,60,0.25);
+      background: rgba(255,255,255,0.06);
+    }
+    .list-date-col .list-day  { font-size: 1.6rem; font-weight: 800; color: #ff4d6d; font-family: 'Poppins', sans-serif; }
+    .list-date-col .list-mon  { font-size: 0.72rem; color: #9090a8; text-transform: uppercase; letter-spacing: 0.08em; }
+    .list-info h4             { color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
+    .list-info p              { color: #9090a8; font-size: 0.82rem; }
+    .list-meta                { font-size: 0.82rem; color: #c0b8c8; }
+    .list-meta p              { margin-bottom: 4px; }
+
+    /* No results */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #9090a8;
+      font-size: 0.95rem;
+    }
+    .no-results span { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+    /* Summary strip */
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .strip-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 18px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .strip-item:hover { border-color: rgba(220,20,60,0.25); }
+    .strip-num   { font-size: 1.8rem; font-weight: 800; color: #ff4d6d; font-family: 'Poppins',sans-serif; }
+    .strip-label { font-size: 0.75rem; color: #9090a8; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.07em; }
+
+    @media (max-width: 768px) {
+      .summary-strip { grid-template-columns: 1fr 1fr; }
+      .filter-search { width: 100%; }
+      .schedule-list-item { grid-template-columns: 60px 1fr; }
+      .list-meta, .schedule-list-item > a { display: none; }
+    }
+    @media (max-width: 480px) {
+      .summary-strip { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">❤️</div>
+      <div class="nav-logo-text">Life<span>Flow</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="eligibility.html">Eligibility</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="schedule.html" class="nav-active">Schedule</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HERO ===== -->
+  <div class="page-hero">
+    <span class="section-tag">Upcoming Events</span>
+    <h1>Camp Schedule 2025</h1>
+    <p>Find a blood donation camp near you across Tamil Nadu. Filter by status or search by location.</p>
+  </div>
+
+  <main>
+    <section class="section" style="padding-top: 20px;">
+
+      <!-- Summary Strip -->
+      <div class="summary-strip">
+        <div class="strip-item">
+          <div class="strip-num">6</div>
+          <div class="strip-label">Total Camps</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-num">4</div>
+          <div class="strip-label">Open Slots</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-num">580+</div>
+          <div class="strip-label">Total Capacity</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-num">5</div>
+          <div class="strip-label">Locations</div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-btn active" data-filter="all">All Camps</button>
+        <button class="filter-btn" data-filter="open">Open</button>
+        <button class="filter-btn" data-filter="limited">Limited</button>
+        <button class="filter-btn" data-filter="full">Full</button>
+
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridViewBtn" title="Grid view">▦</button>
+          <button class="view-btn"        id="listViewBtn" title="List view">☰</button>
+        </div>
+
+        <input type="search" class="filter-search" id="campSearch"
+               placeholder="🔍 Search by location..." />
+      </div>
+
+      <!-- ===== GRID VIEW ===== -->
+      <div class="schedule-grid" id="scheduleGrid">
+
+        <!-- Camp 1 — Open -->
+        <div class="schedule-card" data-status="open" data-location="city hall community center anna salai chennai">
+          <div class="schedule-date">05</div>
+          <div class="schedule-month">August 2025</div>
+          <div class="camp-detail"><span>🕗</span><span>8:00 AM – 5:00 PM</span></div>
+          <div class="camp-detail"><span>📍</span><span>City Hall Community Center, Anna Salai, Chennai – 600002</span></div>
+          <div class="camp-detail"><span>🧑‍⚕️</span><span>Medical Supervisor: Dr. Ramesh Iyer</span></div>
+          <div class="schedule-slots">
+            <span class="slots-count">47 / 100 slots filled</span>
+            <span class="slots-badge slots-open">Open</span>
+          </div>
+          <a href="register.html" class="camp-register-btn">🩸 Register Now</a>
+        </div>
+
+        <!-- Camp 2 — Limited -->
+        <div class="schedule-card" data-status="limited" data-location="rajiv gandhi government hospital park town chennai">
+          <div class="schedule-date">18</div>
+          <div class="schedule-month">August 2025</div>
+          <div class="camp-detail"><span>🕗</span><span>9:00 AM – 4:00 PM</span></div>
+          <div class="camp-detail"><span>📍</span><span>Rajiv Gandhi Govt. Hospital, Park Town, Chennai – 600003</span></div>
+          <div class="camp-detail"><span>🧑‍⚕️</span><span>Medical Supervisor: Dr. Sowmya Krishnan</span></div>
+          <div class="schedule-slots">
+            <span class="slots-count">82 / 100 slots filled</span>
+            <span class="slots-badge slots-limited">Limited</span>
+          </div>
+          <a href="register.html" class="camp-register-btn">🩸 Register Now</a>
+        </div>
+
+        <!-- Camp 3 — Full -->
+        <div class="schedule-card" data-status="full" data-location="anna nagar blood bank 16th main road chennai">
+          <div class="schedule-date">02</div>
+          <div class="schedule-month">September 2025</div>
+          <div class="camp-detail"><span>🕗</span><span>8:00 AM – 6:00 PM</span></div>
+          <div class="camp-detail"><span>📍</span><span>Anna Nagar Blood Bank, 16th Main Road, Chennai – 600040</span></div>
+          <div class="camp-detail"><span>🧑‍⚕️</span><span>Medical Supervisor: Dr. Priya Venkatesh</span></div>
+          <div class="schedule-slots">
+            <span class="slots-count">100 / 100 slots filled</span>
+            <span class="slots-badge slots-full">Full</span>
+          </div>
+          <a class="camp-register-btn disabled">Slots Full</a>
+        </div>
+
+        <!-- Camp 4 — Open -->
+        <div class="schedule-card" data-status="open" data-location="tambaram government medical college chennai">
+          <div class="schedule-date">20</div>
+          <div class="schedule-month">September 2025</div>
+          <div class="camp-detail"><span>🕗</span><span>8:30 AM – 5:30 PM</span></div>
+          <div class="camp-detail"><span>📍</span><span>Tambaram Govt. Medical College, Tambaram, Chennai – 600047</span></div>
+          <div class="camp-detail"><span>🧑‍⚕️</span><span>Medical Supervisor: Dr. Ramesh Iyer</span></div>
+          <div class="schedule-slots">
+            <span class="slots-count">15 / 120 slots filled</span>
+            <span class="slots-badge slots-open">Open</span>
+          </div>
+          <a href="register.html" class="camp-register-btn">🩸 Register Now</a>
+        </div>
+
+        <!-- Camp 5 — Open -->
+        <div class="schedule-card" data-status="open" data-location="velachery health center 100 feet road chennai">
+          <div class="schedule-date">10</div>
+          <div class="schedule-month">October 2025</div>
+          <div class="camp-detail"><span>🕗</span><span>9:00 AM – 3:00 PM</span></div>
+          <div class="camp-detail"><span>📍</span><span>Velachery Health Center, 100 Feet Road, Chennai – 600042</span></div>
+          <div class="camp-detail"><span>🧑‍⚕️</span><span>Medical Supervisor: Dr. Sowmya Krishnan</span></div>
+          <div class="schedule-slots">
+            <span class="slots-count">0 / 80 slots filled</span>
+            <span class="slots-badge slots-open">Open</span>
+          </div>
+          <a href="register.html" class="camp-register-btn">🩸 Register Now</a>
+        </div>
+
+        <!-- Camp 6 — Open -->
+        <div class="schedule-card" data-status="open" data-location="iit madras campus sardar patel road chennai">
+          <div class="schedule-date">28</div>
+          <div class="schedule-month">October 2025</div>
+          <div class="camp-detail"><span>🕗</span><span>8:00 AM – 5:00 PM</span></div>
+          <div class="camp-detail"><span>📍</span><span>IIT Madras Campus, Sardar Patel Road, Chennai – 600036</span></div>
+          <div class="camp-detail"><span>🧑‍⚕️</span><span>Medical Supervisor: Dr. Ramesh Iyer</span></div>
+          <div class="schedule-slots">
+            <span class="slots-count">Coming Soon</span>
+            <span class="slots-badge slots-open">Open</span>
+          </div>
+          <a href="register.html" class="camp-register-btn">🩸 Register Now</a>
+        </div>
+
+      </div><!-- /#scheduleGrid -->
+
+      <!-- ===== LIST VIEW ===== -->
+      <div class="schedule-list-view" id="scheduleList">
+
+        <div class="schedule-list-item" data-status="open" data-location="city hall community center anna salai chennai">
+          <div class="list-date-col">
+            <div class="list-day">05</div>
+            <div class="list-mon">Aug 2025</div>
+          </div>
+          <div class="list-info">
+            <h4>City Hall Community Center</h4>
+            <p>Anna Salai, Chennai – 600002</p>
+          </div>
+          <div class="list-meta">
+            <p>🕗 8:00 AM – 5:00 PM</p>
+            <p>👥 47 / 100 filled</p>
+          </div>
+          <a href="register.html" class="camp-register-btn" style="margin-top:0;">Register →</a>
+        </div>
+
+        <div class="schedule-list-item" data-status="limited" data-location="rajiv gandhi government hospital park town chennai">
+          <div class="list-date-col">
+            <div class="list-day">18</div>
+            <div class="list-mon">Aug 2025</div>
+          </div>
+          <div class="list-info">
+            <h4>Rajiv Gandhi Govt. Hospital</h4>
+            <p>Park Town, Chennai – 600003</p>
+          </div>
+          <div class="list-meta">
+            <p>🕗 9:00 AM – 4:00 PM</p>
+            <p>👥 82 / 100 filled</p>
+          </div>
+          <a href="register.html" class="camp-register-btn" style="margin-top:0;">Register →</a>
+        </div>
+
+        <div class="schedule-list-item" data-status="full" data-location="anna nagar blood bank 16th main road chennai">
+          <div class="list-date-col">
+            <div class="list-day">02</div>
+            <div class="list-mon">Sep 2025</div>
+          </div>
+          <div class="list-info">
+            <h4>Anna Nagar Blood Bank</h4>
+            <p>16th Main Road, Chennai – 600040</p>
+          </div>
+          <div class="list-meta">
+            <p>🕗 8:00 AM – 6:00 PM</p>
+            <p>👥 100 / 100 filled</p>
+          </div>
+          <a class="camp-register-btn disabled" style="margin-top:0;">Full</a>
+        </div>
+
+        <div class="schedule-list-item" data-status="open" data-location="tambaram government medical college chennai">
+          <div class="list-date-col">
+            <div class="list-day">20</div>
+            <div class="list-mon">Sep 2025</div>
+          </div>
+          <div class="list-info">
+            <h4>Tambaram Govt. Medical College</h4>
+            <p>Tambaram, Chennai – 600047</p>
+          </div>
+          <div class="list-meta">
+            <p>🕗 8:30 AM – 5:30 PM</p>
+            <p>👥 15 / 120 filled</p>
+          </div>
+          <a href="register.html" class="camp-register-btn" style="margin-top:0;">Register →</a>
+        </div>
+
+        <div class="schedule-list-item" data-status="open" data-location="velachery health center 100 feet road chennai">
+          <div class="list-date-col">
+            <div class="list-day">10</div>
+            <div class="list-mon">Oct 2025</div>
+          </div>
+          <div class="list-info">
+            <h4>Velachery Health Center</h4>
+            <p>100 Feet Road, Chennai – 600042</p>
+          </div>
+          <div class="list-meta">
+            <p>🕗 9:00 AM – 3:00 PM</p>
+            <p>👥 0 / 80 filled</p>
+          </div>
+          <a href="register.html" class="camp-register-btn" style="margin-top:0;">Register →</a>
+        </div>
+
+        <div class="schedule-list-item" data-status="open" data-location="iit madras campus sardar patel road chennai">
+          <div class="list-date-col">
+            <div class="list-day">28</div>
+            <div class="list-mon">Oct 2025</div>
+          </div>
+          <div class="list-info">
+            <h4>IIT Madras Campus</h4>
+            <p>Sardar Patel Road, Chennai – 600036</p>
+          </div>
+          <div class="list-meta">
+            <p>🕗 8:00 AM – 5:00 PM</p>
+            <p>👥 Coming Soon</p>
+          </div>
+          <a href="register.html" class="camp-register-btn" style="margin-top:0;">Register →</a>
+        </div>
+
+      </div><!-- /#scheduleList -->
+
+      <!-- No Results Message -->
+      <div class="no-results" id="noResults" style="display:none;">
+        <span>🔍</span>
+        No camps match your search or filter. Try a different keyword or remove the filter.
+      </div>
+
+      <!-- Emergency Blood Request CTA -->
+      <div style="text-align:center;margin-top:48px;padding:40px 24px;background:linear-gradient(135deg,rgba(220,20,60,0.12),rgba(139,0,0,0.08));border:1px solid rgba(220,20,60,0.25);border-radius:24px;">
+        <div style="font-size:2.5rem;margin-bottom:16px;">🚨</div>
+        <h3 style="color:#fff;margin-bottom:8px;font-size:1.2rem;">Need Blood Urgently?</h3>
+        <p style="color:#9090a8;font-size:0.9rem;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;">If you or a family member needs blood urgently, submit an emergency blood request and our coordinators will connect you with available donors immediately.</p>
+        <button class="btn" id="openBloodRequestBtn" style="font-size:0.95rem;padding:14px 32px;">🩸 Submit Emergency Blood Request</button>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="page-divider"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><div class="nav-logo-icon">❤️</div><div class="nav-logo-text">Life<span>Flow</span></div></div>
+        <p>LifeFlow Medical Foundation is dedicated to ensuring an adequate and safe blood supply for patients in need.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">f</a><a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">📸</a><a href="#" class="social-btn">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+          <li><a href="eligibility.html">Eligibility</a></li><li><a href="register.html">Register Now</a></li>
+          <li><a href="schedule.html">Camp Schedule</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="eligibility.html">Donor Handbook</a></li><li><a href="eligibility.html">Blood Type Guide</a></li>
+          <li><a href="contact.html#faq">FAQs</a></li><li><a href="eligibility.html">Post-Donation Care</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal &amp; Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Consent Form</a></li><li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LifeFlow Medical Foundation. All rights reserved.</p>
+      <p>Made with <span style="color:#ff4d6d;">❤️</span> in Tamil Nadu, India.</p>
+    </div>
+  </footer>
+
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    // ===== FILTER BUTTONS =====
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    // ===== SEARCH =====
+    document.getElementById('campSearch').addEventListener('input', applyFilters);
+
+    function applyFilters() {
+      const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+      const query = document.getElementById('campSearch').value.toLowerCase().trim();
+      const isGrid = document.getElementById('scheduleGrid').style.display !== 'none';
+
+      const gridCards = document.querySelectorAll('#scheduleGrid .schedule-card');
+      const listItems = document.querySelectorAll('#scheduleList .schedule-list-item');
+
+      let visibleCount = 0;
+
+      function matchItem(el) {
+        const statusMatch = activeFilter === 'all' || el.dataset.status === activeFilter;
+        const searchMatch = !query || el.dataset.location.includes(query);
+        return statusMatch && searchMatch;
+      }
+
+      gridCards.forEach(card => {
+        const show = matchItem(card);
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+      listItems.forEach(item => {
+        const show = matchItem(item);
+        item.style.display = show ? '' : 'none';
+      });
+
+      document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // ===== VIEW TOGGLE =====
+    const gridViewBtn = document.getElementById('gridViewBtn');
+    const listViewBtn = document.getElementById('listViewBtn');
+    const grid = document.getElementById('scheduleGrid');
+    const list = document.getElementById('scheduleList');
+
+    gridViewBtn.addEventListener('click', function() {
+      grid.style.display = ''; list.style.display = 'none';
+      gridViewBtn.classList.add('active'); listViewBtn.classList.remove('active');
+    });
+    listViewBtn.addEventListener('click', function() {
+      grid.style.display = 'none'; list.style.display = 'block';
+      listViewBtn.classList.add('active'); gridViewBtn.classList.remove('active');
+    });
+  </script>
+
+  <!-- ===== EMERGENCY BLOOD REQUEST MODAL ===== -->
+  <div id="bloodRequestModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:9999;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:linear-gradient(145deg,#1a1a2e,#0f0f1a);border:1px solid rgba(220,20,60,0.3);border-radius:24px;padding:40px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;animation:brModalIn 0.35s ease;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;">
+        <div>
+          <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ff4d6d;margin-bottom:6px;">Urgent</div>
+          <h2 style="color:#fff;font-size:1.4rem;margin:0;">Emergency Blood Request</h2>
+        </div>
+        <button id="closeBloodRequestBtn" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#9090a8;font-size:1.2rem;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+
+      <div id="brSuccess" style="display:none;text-align:center;padding:30px 0;">
+        <div style="font-size:3rem;margin-bottom:16px;">✅</div>
+        <h3 style="color:#4ade80;margin-bottom:12px;">Request Submitted!</h3>
+        <p style="color:#9090a8;font-size:0.9rem;" id="brSuccessMsg"></p>
+        <button onclick="document.getElementById('bloodRequestModal').style.display='none'" style="margin-top:20px;padding:12px 28px;background:linear-gradient(135deg,#dc143c,#8b0000);color:#fff;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:0.9rem;">Close</button>
+      </div>
+
+      <form id="bloodRequestForm" novalidate>
+        <div id="brError" style="display:none;background:rgba(220,20,60,0.1);border:1px solid rgba(220,20,60,0.3);border-radius:10px;padding:12px 16px;color:#ff8fa3;font-size:0.85rem;margin-bottom:20px;"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Patient Name <span style="color:#ff4d6d;">*</span></label>
+            <input type="text" id="br_patientName" required placeholder="Full name of patient"
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;" />
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Your Name <span style="color:#ff4d6d;">*</span></label>
+            <input type="text" id="br_requesterName" required placeholder="Your full name"
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;" />
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Contact Phone <span style="color:#ff4d6d;">*</span></label>
+            <input type="tel" id="br_contactPhone" required placeholder="+91 98765 43210"
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;" />
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Contact Email</label>
+            <input type="email" id="br_contactEmail" placeholder="optional@email.com"
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;" />
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Blood Group <span style="color:#ff4d6d;">*</span></label>
+            <select id="br_bloodGroup" required
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;">
+              <option value="" disabled selected>Select</option>
+              <option>A+</option><option>A-</option>
+              <option>B+</option><option>B-</option>
+              <option>O+</option><option>O-</option>
+              <option>AB+</option><option>AB-</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Units Needed <span style="color:#ff4d6d;">*</span></label>
+            <input type="number" id="br_unitsRequired" required min="1" max="20" value="1" placeholder="e.g. 2"
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;" />
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Urgency <span style="color:#ff4d6d;">*</span></label>
+            <select id="br_urgency" required
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;">
+              <option value="normal">Normal</option>
+              <option value="urgent">Urgent</option>
+              <option value="critical" selected>Critical 🚨</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Hospital Name <span style="color:#ff4d6d;">*</span></label>
+            <input type="text" id="br_hospitalName" required placeholder="Name of hospital"
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;" />
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">City <span style="color:#ff4d6d;">*</span></label>
+            <input type="text" id="br_hospitalCity" required placeholder="e.g. Chennai"
+              style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <label style="display:block;font-size:0.75rem;font-weight:600;color:#a0a0b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Reason / Additional Info</label>
+          <textarea id="br_reason" rows="3" placeholder="Medical condition, surgery details, or any other relevant information..."
+            style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f0f0f5;font-size:0.9rem;outline:none;font-family:Inter,sans-serif;resize:vertical;"></textarea>
+        </div>
+
+        <button type="submit" id="brSubmitBtn"
+          style="width:100%;padding:15px;background:linear-gradient(135deg,#dc143c,#8b0000);color:#fff;border:none;border-radius:13px;font-size:1rem;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;box-shadow:0 8px 24px rgba(220,20,60,0.4);transition:all 0.3s ease;">
+          🩸 Submit Blood Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <style>
+    @keyframes brModalIn {
+      from { opacity:0; transform:scale(0.92) translateY(20px); }
+      to   { opacity:1; transform:scale(1) translateY(0); }
+    }
+    #bloodRequestModal input:focus,
+    #bloodRequestModal select:focus,
+    #bloodRequestModal textarea:focus {
+      border-color: #dc143c !important;
+      background: rgba(220,20,60,0.08) !important;
+      box-shadow: 0 0 0 3px rgba(220,20,60,0.15) !important;
+    }
+  </style>
+
+  <script>
+    // ===== BLOOD REQUEST MODAL =====
+    const brModal = document.getElementById('bloodRequestModal');
+
+    document.getElementById('openBloodRequestBtn').addEventListener('click', function() {
+      brModal.style.display = 'flex';
+      document.getElementById('brError').style.display = 'none';
+      document.getElementById('brSuccess').style.display = 'none';
+      document.getElementById('bloodRequestForm').style.display = '';
+      document.getElementById('bloodRequestForm').reset();
+    });
+    document.getElementById('closeBloodRequestBtn').addEventListener('click', function() {
+      brModal.style.display = 'none';
+    });
+    brModal.addEventListener('click', function(e) {
+      if (e.target === brModal) brModal.style.display = 'none';
+    });
+
+    document.getElementById('bloodRequestForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const errEl = document.getElementById('brError');
+      errEl.style.display = 'none';
+
+      const payload = {
+        patientName:   document.getElementById('br_patientName').value.trim(),
+        requesterName: document.getElementById('br_requesterName').value.trim(),
+        contactPhone:  document.getElementById('br_contactPhone').value.trim(),
+        contactEmail:  document.getElementById('br_contactEmail').value.trim(),
+        bloodGroup:    document.getElementById('br_bloodGroup').value,
+        unitsRequired: parseInt(document.getElementById('br_unitsRequired').value) || 1,
+        hospitalName:  document.getElementById('br_hospitalName').value.trim(),
+        hospitalCity:  document.getElementById('br_hospitalCity').value.trim(),
+        urgency:       document.getElementById('br_urgency').value,
+        reason:        document.getElementById('br_reason').value.trim()
+      };
+
+      // Client-side validation
+      const required = ['patientName','requesterName','contactPhone','bloodGroup','hospitalName','hospitalCity'];
+      const missing  = required.filter(k => !payload[k]);
+      if (missing.length) {
+        errEl.textContent = '⚠️ Please fill in all required fields.';
+        errEl.style.display = 'block';
+        return;
+      }
+
+      const btn = document.getElementById('brSubmitBtn');
+      btn.textContent = '⏳ Submitting...';
+      btn.disabled = true;
+
+      try {
+        const res  = await fetch(API_BASE + '/api/requests', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('bloodRequestForm').style.display = 'none';
+          const successEl = document.getElementById('brSuccess');
+          document.getElementById('brSuccessMsg').innerHTML =
+            'Request #' + data.requestId + ' submitted successfully.<br/><br/>' +
+            'Our team will contact you at <strong>' + (payload.contactPhone || payload.contactEmail) + '</strong> within 30 minutes.';
+          successEl.style.display = 'block';
+        } else {
+          errEl.textContent = '❌ ' + (data.message || 'Submission failed. Please try again.');
+          errEl.style.display = 'block';
+        }
+      } catch (err) {
+        errEl.textContent = '❌ Cannot reach the server. Please call our 24×7 helpline: +91 1800-200-25663';
+        errEl.style.display = 'block';
+      } finally {
+        btn.textContent = '🩸 Submit Blood Request';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

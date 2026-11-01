@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Learn about LifeFlow Medical Foundation – our mission, team, and impact in the blood donation community across Tamil Nadu." />
+  <title>LifeFlow – About Us | Blood Donation Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Internal CSS – About page */
+    .page-hero {
+      padding: 160px 20px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(220, 20, 60, 0.12) 0%, transparent 65%);
+    }
+
+    .page-hero h1 {
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      max-width: 580px;
+      margin: 0 auto;
+      font-size: 1rem;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .mission-text h2 {
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .mission-text p {
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .mission-visual {
+      background: rgba(220, 20, 60, 0.06);
+      border: 1px solid rgba(220, 20, 60, 0.2);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      font-size: 5rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .team-card:hover {
+      border-color: rgba(220, 20, 60, 0.3);
+      transform: translateY(-6px);
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 auto 16px;
+    }
+
+    .team-name {
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .team-title {
+      color: #9090a8;
+      font-size: 0.82rem;
+    }
+
+    .team-desc {
+      color: #c0b8c8;
+      font-size: 0.82rem;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .value-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 28px 22px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .value-card:hover {
+      border-color: rgba(220, 20, 60, 0.25);
+    }
+
+    .value-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .value-title {
+      color: #fff;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .value-desc {
+      color: #9090a8;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .mission-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">❤️</div>
+      <div class="nav-logo-text">Life<span>Flow</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="nav-active">About</a></li>
+      <li><a href="eligibility.html">Eligibility</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+    <div class="hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HERO ===== -->
+  <div class="page-hero">
+    <span class="section-tag">Our Story</span>
+    <h1>About LifeFlow Foundation</h1>
+    <p>We are a non-profit organization dedicated to bridging the gap between blood donors and those in critical need —
+      one donation at a time.</p>
+  </div>
+
+  <main>
+    <!-- Mission Section -->
+    <section class="section" style="padding-top:20px;">
+      <div class="mission-grid">
+        <div class="mission-text">
+          <span class="section-tag">Our Mission</span>
+          <h2>Saving Lives Through Voluntary Blood Donation</h2>
+          <p>Founded in 2010, LifeFlow Medical Foundation was born out of a simple yet urgent truth — thousands of
+            patients in Tamil Nadu die every year due to unavailability of blood at the right time.</p>
+          <p>We organize regular blood donation camps across the state, partner with government hospitals, and maintain
+            a real-time database of active donors who can be called upon in emergencies.</p>
+          <p>To date, we have facilitated over <strong style="color:#ff4d6d;">12,500 life-saving transfusions</strong>,
+            organized <strong style="color:#ff4d6d;">45+ camps</strong>, and built a network of <strong
+              style="color:#ff4d6d;">3,200+ active donors</strong>.</p>
+          <a href="register.html" class="btn" id="btn-primary" style="margin-top:16px;display:inline-flex;">🩸 Join Our
+            Donor Network</a>
+        </div>
+        <div class="mission-visual">
+          <div style="font-size:5rem;margin-bottom:16px;">🩸</div>
+          <h3 style="color:#ff4d6d;font-size:2.5rem;font-weight:900;font-family:'Poppins',sans-serif;">12,500+</h3>
+          <p style="color:#c0b8c8;font-size:0.9rem;margin-top:8px;">Lives saved since 2010</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;text-align:center;">
+            <div style="padding:14px;background:rgba(220,20,60,0.1);border-radius:12px;">
+              <div style="font-size:1.6rem;font-weight:800;color:#ff4d6d;font-family:'Poppins',sans-serif;">45+</div>
+              <div style="font-size:0.75rem;color:#9090a8;margin-top:4px;">Camps Organized</div>
+            </div>
+            <div style="padding:14px;background:rgba(220,20,60,0.1);border-radius:12px;">
+              <div style="font-size:1.6rem;font-weight:800;color:#ff4d6d;font-family:'Poppins',sans-serif;">3,200+</div>
+              <div style="font-size:0.75rem;color:#9090a8;margin-top:4px;">Active Donors</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Our Values -->
+      <div class="section-header">
+        <span class="section-tag">What We Stand For</span>
+        <h2 class="section-title">Our Core Values</h2>
+      </div>
+      <div class="values-grid mb-32">
+        <div class="value-card">
+          <div class="value-icon">🛡️</div>
+          <div class="value-title">Safety First</div>
+          <div class="value-desc">Every donation is performed under strict medical supervision with 100% sterile
+            equipment.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <div class="value-title">Community</div>
+          <div class="value-desc">We build strong networks of donors, hospitals, and volunteers united by a common
+            purpose.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">💡</div>
+          <div class="value-title">Transparency</div>
+          <div class="value-desc">Donors and recipients can track blood availability and usage through our open
+            platform.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">⚡</div>
+          <div class="value-title">Urgency</div>
+          <div class="value-desc">We respond rapidly to emergency requests, coordinating donors within hours of a
+            critical need.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🌱</div>
+          <div class="value-title">Sustainability</div>
+          <div class="value-desc">Our recurring donor programs ensure a steady blood supply throughout the year, not
+            just at crisis moments.</div>
+        </div>
+      </div>
+
+      <!-- Team Section -->
+      <div class="section-header">
+        <span class="section-tag">The People Behind LifeFlow</span>
+        <h2 class="section-title">Meet Our Team</h2>
+        <p class="section-desc">Our dedicated team of doctors, coordinators, and volunteers work tirelessly to keep the
+          blood supply flowing.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#dc143c,#8b0000);">DR</div>
+          <div class="team-name">Dr. Ramesh Iyer</div>
+          <div class="team-title">Founder &amp; Chief Medical Officer</div>
+          <div class="team-desc">MBBS, MD (Hematology), AIIMS Delhi. 20+ years in transfusion medicine. Pioneered the
+            mobile blood camp model in Tamil Nadu.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#3b82f6,#1e3a8a);">DS</div>
+          <div class="team-name">Dr. Sowmya Krishnan</div>
+          <div class="team-title">Head of Donor Relations</div>
+          <div class="team-desc">MD (Pathology), CMC Vellore. Leads donor screening protocols and manages our network of
+            3,200+ registered donors.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#22c55e,#166534);">AM</div>
+          <div class="team-name">Arjun Murugan</div>
+          <div class="team-title">Operations &amp; Logistics Head</div>
+          <div class="team-desc">MBA (Healthcare Management). Coordinates all camp logistics, blood bank partnerships,
+            and emergency response protocols.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#f59e0b,#92400e);">PV</div>
+          <div class="team-name">Priya Venkatesh</div>
+          <div class="team-title">Community Outreach Manager</div>
+          <div class="team-desc">Social worker with 12 years of experience. Drives awareness campaigns in schools,
+            colleges, and corporate organizations.</div>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="section-header" style="margin-top:60px;">
+        <span class="section-tag">Donor Stories</span>
+        <h2 class="section-title">Voices That Inspire</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"I've been donating blood for 5 years through LifeFlow. The staff is incredibly
+            professional, the process is quick, and knowing I've saved lives is priceless."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar avatar-red">AK</div>
+            <div>
+              <div class="author-name">Ananya Krishnan</div>
+              <div class="author-type">Regular Donor – 22 donations</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"My mother needed urgent O-negative blood during surgery. LifeFlow's donors saved
+            her life. I registered the very next month and have donated 4 times since."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar avatar-blue">RM</div>
+            <div>
+              <div class="author-name">Rajan Murugan</div>
+              <div class="author-type">Grateful Recipient's Son</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"As a medical student, I understand the constant shortage of blood. LifeFlow makes
+            donating so easy and organized. I encourage all my classmates to register!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar avatar-green">PS</div>
+            <div>
+              <div class="author-name">Dr. Priya Subramanian</div>
+              <div class="author-type">MBBS Student &amp; Donor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="page-divider"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-logo-icon">❤️</div>
+          <div class="nav-logo-text">Life<span>Flow</span></div>
+        </div>
+        <p>LifeFlow Medical Foundation is dedicated to ensuring an adequate and safe blood supply for patients in need.
+          Every donation saves up to three lives.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">📸</a>
+          <a href="#" class="social-btn">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="eligibility.html">Eligibility</a></li>
+          <li><a href="register.html">Register Now</a></li>
+          <li><a href="schedule.html">Camp Schedule</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="eligibility.html">Donor Handbook</a></li>
+          <li><a href="eligibility.html">Blood Type Guide</a></li>
+          <li><a href="contact.html#faq">FAQs</a></li>
+          <li><a href="eligibility.html">Post-Donation Care</a></li>
+          <li><a href="schedule.html">Partner Hospitals</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal &amp; Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Consent Form</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="contact.html">Volunteer With Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LifeFlow Medical Foundation. All rights reserved.</p>
+      <p>Made with <span style="color:#ff4d6d;">❤️</span> in Tamil Nadu, India.</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+
+</html>
